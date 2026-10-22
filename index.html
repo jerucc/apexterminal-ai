@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ApexTerminal AI v10.1 - Pro Interactive</title>
+    <title>ApexTerminal AI v10.4 - Pro Interactive</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #07090e; color: #f3f4f6; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
-        .glass { background: rgba(13, 17, 23, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass { background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased pb-12">
@@ -23,10 +23,10 @@
             </div>
             <div>
                 <h1 class="font-extrabold tracking-tight text-white text-sm lg:text-base">APEXTERMINAL <span class="text-blue-400">AI</span></h1>
-                <p class="text-[10px] text-slate-400">Interactive Pro Edition v10.1</p>
+                <p class="text-[10px] text-slate-400">Interactive Pro Edition v10.4</p>
             </div>
         </div>
-        <button onclick="toggleWallet()" id="walletBtn" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition shadow-lg shadow-blue-600/20 cursor-pointer">
+        <button id="walletBtn" onclick="toggleWallet()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition shadow-lg shadow-blue-600/20 cursor-pointer">
             Connect Wallet
         </button>
     </header>
@@ -41,7 +41,7 @@
             <div class="glass p-4 rounded-2xl flex items-center justify-between gap-4">
                 <div class="flex items-center gap-2 flex-1">
                     <label class="text-xs text-slate-400 font-semibold">Chain:</label>
-                    <select id="chainSelect" onchange="changeChain()" class="bg-slate-900 border border-slate-700 text-white text-xs rounded-xl px-3 py-2.5 outline-none flex-1 max-w-xs cursor-pointer">
+                    <select id="chainSelect" onchange="changeChain(this.value)" class="bg-slate-900 border border-slate-700 text-white text-xs rounded-xl px-3 py-2.5 outline-none flex-1 max-w-xs cursor-pointer">
                         <option value="solana">Solana (SOL)</option>
                         <option value="ethereum">Ethereum (ETH)</option>
                         <option value="base">Base (BASE)</option>
@@ -60,10 +60,10 @@
                     <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
                         <i class="fa-solid fa-radar text-blue-400"></i> Market Radar (<span id="activeChainLabel" class="text-blue-400">SOLANA</span>)
                     </h2>
-                    <span class="text-[10px] text-slate-400">Click any token to trade/audit</span>
+                    <span class="text-[10px] text-slate-400">Click any token below to trade/audit</span>
                 </div>
                 <div id="radarFeed" class="space-y-2.5 max-h-[340px] overflow-y-auto pr-1">
-                    <!-- Populated via script -->
+                    <!-- Populated instantly -->
                 </div>
             </div>
 
@@ -74,10 +74,10 @@
                 </h2>
                 <div class="flex gap-2 mb-3">
                     <input type="text" id="auditInput" placeholder="Select a token above or paste address..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono outline-none focus:border-emerald-500">
-                    <button onclick="runAudit()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-5 py-2.5 rounded-xl cursor-pointer transition">Scan</button>
+                    <button onclick="runAudit()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-5 py-2.5 rounded-xl cursor-pointer transition shadow-lg shadow-emerald-600/20">Scan</button>
                 </div>
                 <div id="auditResult" class="p-3.5 bg-slate-900/90 rounded-xl text-xs text-slate-300 border border-slate-800 leading-relaxed">
-                    <span class="text-slate-400"><i class="fa-solid fa-info-circle mr-1 text-blue-400"></i> Select any token from the radar above to instantly run a multi-factor smart contract audit.</span>
+                    <span class="text-slate-400"><i class="fa-solid fa-info-circle mr-1 text-blue-400"></i> Select any token from the radar above or paste an address to run a security audit.</span>
                 </div>
             </div>
 
@@ -116,7 +116,7 @@
                         <span class="text-slate-400">Paper Balance:</span>
                         <span id="botBalance" class="font-mono text-emerald-400 font-bold">$10,000.00</span>
                     </div>
-                    <button onclick="toggleBot()" id="botBtn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl transition cursor-pointer shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2">
+                    <button id="botBtn" onclick="toggleBot()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl transition cursor-pointer shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2">
                         <i class="fa-solid fa-play"></i> Start Simulation Bot
                     </button>
                 </div>
@@ -160,22 +160,16 @@
         let balance = 10000;
         let walletConnected = false;
 
-        function changeChain() {
-            currentChain = document.getElementById('chainSelect').value;
-            document.getElementById('activeChainLabel').innerText = currentChain.toUpperCase();
-            document.getElementById('nativeSymbol').innerText = currentChain === 'solana' ? 'SOL' : currentChain === 'bsc' ? 'BNB' : 'ETH';
-            loadRadar();
-        }
-
         function loadRadar() {
             const feed = document.getElementById('radarFeed');
+            if (!feed) return;
             feed.innerHTML = '';
             const tokens = mockTokens[currentChain] || mockTokens.solana;
 
             tokens.forEach(t => {
                 const div = document.createElement('div');
                 div.className = "bg-slate-900/90 hover:bg-slate-900 p-3 rounded-xl border border-slate-800 flex justify-between items-center cursor-pointer transition group";
-                div.onclick = () => {
+                div.onclick = function() {
                     document.getElementById('swapTarget').value = t.addr;
                     document.getElementById('auditInput').value = t.addr;
                     runAudit();
@@ -194,13 +188,24 @@
             });
         }
 
+        function changeChain(val) {
+            currentChain = val;
+            document.getElementById('activeChainLabel').innerText = currentChain.toUpperCase();
+            document.getElementById('nativeSymbol').innerText = currentChain === 'solana' ? 'SOL' : currentChain === 'bsc' ? 'BNB' : 'ETH';
+            loadRadar();
+        }
+
         function runAudit() {
-            const val = document.getElementById('auditInput').value.trim();
+            const inputElem = document.getElementById('auditInput');
+            const resultElem = document.getElementById('auditResult');
+            if(!inputElem || !resultElem) return;
+            
+            const val = inputElem.value.trim();
             if(!val) {
                 alert("Please enter or select a token address first.");
                 return;
             }
-            document.getElementById('auditResult').innerHTML = `
+            resultElem.innerHTML = `
                 <div class="text-emerald-400 font-bold mb-1"><i class="fa-solid fa-shield-check mr-1"></i> SAFE CONTRACT (Score: 96/100)</div>
                 <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-300 mt-2">
                     <div>• Mint Authority: <span class="text-emerald-400">Renounced</span></div>
@@ -218,7 +223,7 @@
                 alert("Please select a target token from the Market Radar first.");
                 return;
             }
-            alert(`⚡ Successfully executed non-custodial swap of ${amt} on ${currentChain.toUpperCase()!}`);
+            alert(`⚡ Successfully executed non-custodial swap of ${amt} on ${currentChain.toUpperCase()}!`);
         }
 
         function toggleBot() {
@@ -233,7 +238,7 @@
                 }, 2000);
             } else {
                 btn.innerHTML = `<i class="fa-solid fa-play"></i> Start Simulation Bot`;
-                btn.className = "w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl transition cursor-pointer shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2";
+                btn.className = "w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl transition cursor-pointer shadow-lg shadow-rose-600/20 flex items-center justify-center gap-2";
                 clearInterval(botTimer);
             }
         }
@@ -250,7 +255,8 @@
             }
         }
 
-        window.onload = loadRadar;
+        // Execute immediately upon parsing script
+        loadRadar();
     </script>
 </body>
 </html>
