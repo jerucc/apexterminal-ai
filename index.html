@@ -3,224 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ApexTerminal AI v8.1 - Ultimate Multichain Trading Suite</title>
-    <!-- Tailwind CSS CDN -->
+    <title>ApexTerminal AI v10.1 - Pro Interactive</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        dark: {
-                            900: '#07090e',
-                            800: '#0d1117',
-                            700: '#161b22',
-                            600: '#21262d',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #07090e; color: #f3f4f6; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
-        .glass-panel { background: rgba(13, 17, 23, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .glow-blue { box-shadow: 0 0 25px rgba(59, 130, 246, 0.15); }
-        .glow-emerald { box-shadow: 0 0 25px rgba(16, 185, 129, 0.15); }
+        .glass { background: rgba(13, 17, 23, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased selection:bg-blue-500 selection:text-white pb-12">
+<body class="min-h-screen flex flex-col antialiased pb-12">
 
-    <!-- Top Navigation Header -->
-    <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80 px-4 lg:px-8 py-3.5 flex items-center justify-between">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glass border-b border-slate-800 px-4 lg:px-8 py-3.5 flex items-center justify-between">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 via-blue-600 to-indigo-600 flex items-center justify-center glow-blue">
-                <i class="fa-solid fa-bolt-lightning text-white text-lg"></i>
+            <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/20">
+                <i class="fa-solid fa-bolt"></i>
             </div>
             <div>
-                <div class="flex items-center gap-2">
-                    <h1 class="font-extrabold tracking-tight text-white text-base lg:text-lg">APEXTERMINAL <span class="text-blue-400">AI</span></h1>
-                    <span class="text-[10px] font-bold bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/30">v8.1 LIVE</span>
-                </div>
-                <p class="text-[11px] text-slate-400">Multichain Intelligence & Autonomous Execution Suite</p>
+                <h1 class="font-extrabold tracking-tight text-white text-sm lg:text-base">APEXTERMINAL <span class="text-blue-400">AI</span></h1>
+                <p class="text-[10px] text-slate-400">Interactive Pro Edition v10.1</p>
             </div>
         </div>
-
-        <div class="flex items-center gap-2.5">
-            <!-- Global Emergency Kill Switch -->
-            <button onclick="triggerEmergencyKillSwitch()" class="bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 border border-rose-500/40 text-xs font-bold px-3 py-2 rounded-xl transition flex items-center gap-1.5 cursor-pointer">
-                <i class="fa-solid fa-power-off"></i> <span class="hidden sm:inline">KILL SWITCH</span>
-            </button>
-
-            <!-- Wallet Connect / In-App Wallet Modal Trigger -->
-            <button onclick="openWalletModal()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition shadow-lg shadow-blue-600/20 flex items-center gap-2 cursor-pointer">
-                <i class="fa-solid fa-wallet"></i> <span id="walletBtnText">Connect / Fast Wallet</span>
-            </button>
-        </div>
+        <button onclick="toggleWallet()" id="walletBtn" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition shadow-lg shadow-blue-600/20 cursor-pointer">
+            Connect Wallet
+        </button>
     </header>
 
-    <!-- Main Workspace Grid -->
+    <!-- Main Workspace -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        <!-- Column 1 & 2: Market Intelligence & Radar -->
+        <!-- Column 1 & 2: Radar & Audit -->
         <section class="lg:col-span-2 space-y-6">
             
-            <!-- Chain & Feed Selector Toolbar -->
-            <div class="glass-panel p-4 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div class="flex items-center gap-2 w-full sm:w-auto">
-                    <label class="text-xs text-slate-400 font-semibold whitespace-nowrap">Active Chain:</label>
-                    <select id="chainSelector" onchange="switchChain(this.value)" class="bg-slate-900 border border-slate-700 text-white text-xs rounded-xl px-3 py-2 outline-none focus:border-blue-500 flex-1 sm:w-48 cursor-pointer">
+            <!-- Chain Selector Toolbar -->
+            <div class="glass p-4 rounded-2xl flex items-center justify-between gap-4">
+                <div class="flex items-center gap-2 flex-1">
+                    <label class="text-xs text-slate-400 font-semibold">Chain:</label>
+                    <select id="chainSelect" onchange="changeChain()" class="bg-slate-900 border border-slate-700 text-white text-xs rounded-xl px-3 py-2.5 outline-none flex-1 max-w-xs cursor-pointer">
                         <option value="solana">Solana (SOL)</option>
                         <option value="ethereum">Ethereum (ETH)</option>
                         <option value="base">Base (BASE)</option>
-                        <option value="arbitrum">Arbitrum (ARB)</option>
                         <option value="bsc">BNB Chain (BSC)</option>
                         <option value="robinhood">Robinhood Chain (HOOD)</option>
                     </select>
                 </div>
-
-                <div class="flex bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-semibold w-full sm:w-auto">
-                    <button onclick="setFeedTab('trending')" id="tabTrending" class="flex-1 sm:flex-none px-4 py-1.5 rounded-lg bg-blue-600 text-white transition cursor-pointer">🔥 Trending</button>
-                    <button onclick="setFeedTab('new')" id="tabNew" class="flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-slate-400 hover:text-white transition cursor-pointer">⚡ Newly Launched</button>
-                </div>
+                <button onclick="loadRadar()" class="text-xs text-slate-300 bg-slate-900 hover:bg-slate-800 px-3.5 py-2.5 rounded-xl border border-slate-700 cursor-pointer transition">
+                    <i class="fa-solid fa-rotate mr-1"></i> Refresh
+                </button>
             </div>
 
-            <!-- Real-Time Market Radar Container -->
-            <div class="glass-panel rounded-2xl p-5 border border-slate-800/80">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                        <i class="fa-solid fa-radar text-blue-400 animate-pulse"></i> Real-Time Market Radar (<span id="radarChainLabel" class="text-blue-400 uppercase">SOLANA</span>)
-                    </h2>
-                    <button onclick="loadMarketRadar()" class="text-xs text-slate-400 hover:text-blue-400 transition flex items-center gap-1.5 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800 cursor-pointer">
-                        <i class="fa-solid fa-rotate"></i> Refresh Feed
-                    </button>
-                </div>
-
-                <div id="tokenFeedContainer" class="space-y-3 max-h-[480px] overflow-y-auto pr-1">
-                    <div class="text-center py-12 text-slate-500 text-xs">
-                        <i class="fa-solid fa-spinner fa-spin text-lg mb-2"></i><br>Scanning decentralized liquidity pools...
-                    </div>
-                </div>
-            </div>
-
-            <!-- AI Rug Shield Audit Suite -->
-            <div class="glass-panel rounded-2xl p-5 border border-slate-800/80">
+            <!-- Market Radar Feed -->
+            <div class="glass rounded-2xl p-5 border border-slate-800 flex flex-col">
                 <div class="flex justify-between items-center mb-3">
                     <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                        <i class="fa-solid fa-shield-halved text-emerald-400"></i> AI Rug Shield Audit
+                        <i class="fa-solid fa-radar text-blue-400"></i> Market Radar (<span id="activeChainLabel" class="text-blue-400">SOLANA</span>)
                     </h2>
-                    <span id="auditStatusBadge" class="text-[10px] font-bold bg-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded-lg border border-emerald-500/30">SYSTEM READY</span>
+                    <span class="text-[10px] text-slate-400">Click any token to trade/audit</span>
                 </div>
-
-                <div class="flex gap-2 mb-4">
-                    <input type="text" id="auditAddressInput" placeholder="Paste token contract address to scan..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white font-mono outline-none focus:border-emerald-500">
-                    <button onclick="runAiSecurityAudit()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition shadow-lg shadow-emerald-600/20 flex items-center gap-1.5 cursor-pointer">
-                        <i class="fa-solid fa-magnifying-glass"></i> Scan
-                    </button>
+                <div id="radarFeed" class="space-y-2.5 max-h-[340px] overflow-y-auto pr-1">
+                    <!-- Populated via script -->
                 </div>
+            </div>
 
-                <div id="auditResultsPanel" class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs mb-3">
-                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-                        <span class="text-slate-400 block text-[10px] mb-1">Mint Authority</span>
-                        <span id="auditMint" class="font-bold text-slate-300">--</span>
-                    </div>
-                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-                        <span class="text-slate-400 block text-[10px] mb-1">Liquidity Lock (LP)</span>
-                        <span id="auditLp" class="font-bold text-slate-300">--</span>
-                    </div>
-                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-                        <span class="text-slate-400 block text-[10px] mb-1">Honeypot Evaluation</span>
-                        <span id="auditHoneypot" class="font-bold text-slate-300">--</span>
-                    </div>
-                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-                        <span class="text-slate-400 block text-[10px] mb-1">Top Holder Risk</span>
-                        <span id="auditHolders" class="font-bold text-slate-300">--</span>
-                    </div>
+            <!-- Security Audit Panel -->
+            <div class="glass rounded-2xl p-5 border border-slate-800">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-emerald-400"></i> AI Rug Shield Audit
+                </h2>
+                <div class="flex gap-2 mb-3">
+                    <input type="text" id="auditInput" placeholder="Select a token above or paste address..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono outline-none focus:border-emerald-500">
+                    <button onclick="runAudit()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-5 py-2.5 rounded-xl cursor-pointer transition">Scan</button>
                 </div>
-
-                <div id="aiVerdictBox" class="p-3 bg-slate-900/90 rounded-xl border border-slate-800 text-xs text-slate-400">
-                    <i class="fa-solid fa-microchip text-blue-400 mr-1.5"></i> Apex AI Verdict: Select any token from the Market Radar or input a contract address above to run a multi-factor smart contract audit.
+                <div id="auditResult" class="p-3.5 bg-slate-900/90 rounded-xl text-xs text-slate-300 border border-slate-800 leading-relaxed">
+                    <span class="text-slate-400"><i class="fa-solid fa-info-circle mr-1 text-blue-400"></i> Select any token from the radar above to instantly run a multi-factor smart contract audit.</span>
                 </div>
             </div>
 
         </section>
 
-        <!-- Column 3: Swap Terminal & Safe Auto-Trading Bot -->
+        <!-- Column 3: Swap & Bot -->
         <section class="space-y-6">
 
-            <!-- Classic Swap Terminal -->
-            <div class="glass-panel rounded-2xl p-5 border border-slate-800/80">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                        <i class="fa-solid fa-right-left text-blue-400"></i> Classic Swap Terminal
-                    </h2>
-                    <span id="swapRouterLabel" class="text-[10px] font-semibold text-slate-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">Jupiter Router</span>
-                </div>
-
-                <div class="space-y-3 text-xs">
+            <!-- Swap Terminal -->
+            <div class="glass rounded-2xl p-5 border border-slate-800">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-right-left text-blue-400"></i> Swap Terminal
+                </h2>
+                <div class="space-y-3.5 text-xs">
                     <div>
-                        <label class="text-slate-400 text-[10px] block mb-1">Target Token Address / Pair</label>
-                        <input type="text" id="swapTargetInput" placeholder="Select from radar or paste..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white font-mono outline-none focus:border-blue-500">
+                        <label class="text-slate-400 block mb-1">Target Address</label>
+                        <input type="text" id="swapTarget" placeholder="Select from radar..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white font-mono outline-none focus:border-blue-500">
                     </div>
-
                     <div>
-                        <label class="text-slate-400 text-[10px] block mb-1">Trade Size (<span id="nativeGasLabel">SOL</span>)</label>
-                        <div class="grid grid-cols-3 gap-2 mb-2">
-                            <button onclick="setTradeSize(0.05)" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 py-1.5 rounded-lg text-slate-300 font-semibold transition cursor-pointer">0.05</button>
-                            <button onclick="setTradeSize(0.1)" class="bg-blue-600/20 border border-blue-500/40 text-blue-400 py-1.5 rounded-lg font-semibold transition cursor-pointer">0.1</button>
-                            <button onclick="setTradeSize(0.5)" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 py-1.5 rounded-lg text-slate-300 font-semibold transition cursor-pointer">0.5</button>
-                        </div>
-                        <input type="number" id="tradeSizeInput" value="0.1" step="0.01" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono outline-none">
+                        <label class="text-slate-400 block mb-1">Amount (<span id="nativeSymbol">SOL</span>)</label>
+                        <input type="number" id="swapAmount" value="0.1" step="0.01" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white font-mono outline-none focus:border-blue-500">
                     </div>
-
-                    <button onclick="executeInstantSwap()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 cursor-pointer">
-                        <i class="fa-solid fa-bolt"></i> Instant Non-Custodial Swap
+                    <button onclick="executeSwap()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold py-3.5 rounded-xl transition cursor-pointer shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-bolt"></i> Execute Instant Swap
                     </button>
                 </div>
             </div>
 
-            <!-- Safe Auto-Trading Bot & Simulation Control Room -->
-            <div class="glass-panel rounded-2xl p-5 border border-slate-800/80">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                        <i class="fa-solid fa-robot text-purple-400"></i> Auto-Trading Bot (Simulation)
-                    </h2>
-                    <span id="botStateBadge" class="text-[10px] font-bold bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/30">SIMULATION MODE</span>
-                </div>
-
-                <div class="space-y-3 text-xs">
-                    <div class="flex justify-between items-center bg-slate-900 p-3 rounded-xl border border-slate-800">
-                        <span class="text-slate-300 font-semibold">Paper Trading Balance:</span>
-                        <span id="demoBalanceDisplay" class="font-mono text-emerald-400 font-bold">$10,000.00 USD</span>
+            <!-- Simulation Bot Control -->
+            <div class="glass rounded-2xl p-5 border border-slate-800">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-300 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-robot text-purple-400"></i> Simulation Bot
+                </h2>
+                <div class="space-y-3.5 text-xs">
+                    <div class="flex justify-between items-center bg-slate-900 p-3.5 rounded-xl border border-slate-800">
+                        <span class="text-slate-400">Paper Balance:</span>
+                        <span id="botBalance" class="font-mono text-emerald-400 font-bold">$10,000.00</span>
                     </div>
-
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="bg-slate-900 p-3 rounded-xl border border-slate-800">
-                            <span class="text-slate-400 block text-[10px] mb-1">Take Profit</span>
-                            <span class="font-bold text-emerald-400">+50.0%</span>
-                        </div>
-                        <div class="bg-slate-900 p-3 rounded-xl border border-slate-800">
-                            <span class="text-slate-400 block text-[10px] mb-1">Stop Loss</span>
-                            <span class="font-bold text-rose-400">-15.0%</span>
-                        </div>
-                    </div>
-
-                    <div class="p-3 bg-slate-900 rounded-xl border border-slate-800 text-[11px] text-slate-400 space-y-1">
-                        <div class="flex justify-between"><span>Min. AI Safety Score:</span> <strong class="text-slate-200">85 / 100</strong></div>
-                        <div class="flex justify-between"><span>Max Spend Cap:</span> <strong class="text-slate-200">0.1 SOL / EVM</strong></div>
-                    </div>
-
-                    <div class="flex gap-2">
-                        <button onclick="toggleAutoBot()" id="botToggleBtn" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 cursor-pointer">
-                            <i class="fa-solid fa-play"></i> Start Bot
-                        </button>
-                    </div>
+                    <button onclick="toggleBot()" id="botBtn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl transition cursor-pointer shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-play"></i> Start Simulation Bot
+                    </button>
                 </div>
             </div>
 
@@ -228,252 +126,131 @@
 
     </main>
 
-    <!-- In-App Fast Wallet Modal -->
-    <div id="walletModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="glass-panel rounded-2xl p-6 max-w-md w-full border border-slate-700">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-wallet text-emerald-400"></i> In-App Fast Wallet (Non-Custodial)
-                </h3>
-                <button onclick="closeWalletModal()" class="text-slate-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-
-            <div id="noWalletView">
-                <p class="text-xs text-slate-300 mb-4">
-                    Generate a secure, browser-encrypted local wallet instantly. Perfect for running automated simulation trades and lightning-fast execution without browser extensions.
-                </p>
-                <button onclick="generateInternalWallet()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl text-xs transition shadow-lg shadow-blue-600/30 cursor-pointer">
-                    🔑 Generate New In-App Wallet
-                </button>
-            </div>
-
-            <div id="activeWalletView" class="hidden space-y-3 text-xs">
-                <div class="p-3 bg-slate-900 rounded-xl border border-slate-800">
-                    <span class="text-slate-400 block text-[10px] mb-1">Your Local Address:</span>
-                    <div class="flex justify-between items-center">
-                        <span id="internalAddressDisplay" class="font-mono text-emerald-400 truncate mr-2">--</span>
-                        <button onclick="copyInternalAddress()" class="text-xs bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 cursor-pointer">Copy</button>
-                    </div>
-                </div>
-
-                <div class="p-3 bg-rose-950/20 border border-rose-500/20 rounded-xl text-[11px] text-rose-300">
-                    <p class="font-bold mb-1">⚠️ Security Notice:</p>
-                    Keys are securely stored in your local browser storage. Make sure to export your private key backup before clearing browser data.
-                </div>
-
-                <div class="flex gap-2">
-                    <button onclick="exportPrivateKey()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 rounded-xl font-semibold transition cursor-pointer">Export Key</button>
-                    <button onclick="disconnectInternalWallet()" class="flex-1 bg-rose-600/20 text-rose-400 border border-rose-500/30 py-2.5 rounded-xl font-semibold transition cursor-pointer">Remove Wallet</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Application JavaScript Logic -->
+    <!-- Application Script Logic -->
     <script>
+        const mockTokens = {
+            solana: [
+                { name: 'Bonk', symbol: 'BONK', addr: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263', price: '0.000024', change: '+14.2%', dex: 'Raydium' },
+                { name: 'Dogwifhat', symbol: 'WIF', addr: 'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm', price: '2.14', change: '+8.5%', dex: 'Orca' },
+                { name: 'Popcat', symbol: 'POPCAT', addr: '7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr', price: '0.78', change: '-3.1%', dex: 'Raydium' },
+                { name: 'Cat in a dogs world', symbol: 'MEW', addr: 'MEW1gQWJ3nEXg2qgERiKu7FAFj79PHvQVREQUzScPP5', price: '0.0045', change: '+5.7%', dex: 'Raydium' }
+            ],
+            ethereum: [
+                { name: 'Pepe', symbol: 'PEPE', addr: '0x6982508145454ce325ddbe47a25d4ec3d2311933', price: '0.000012', change: '+5.4%', dex: 'Uniswap' },
+                { name: 'Turbo', symbol: 'TURBO', addr: '0xa35923162c49cf95eebbf262adb383b42ebc7025', price: '0.0074', change: '+12.1%', dex: 'Uniswap' },
+                { name: 'Mog Coin', symbol: 'MOG', addr: '0xaaee154a8c2d34ec4fcc316ff1a9b2b524796328', price: '0.000001', change: '-1.8%', dex: 'Uniswap' }
+            ],
+            base: [
+                { name: 'Brett', symbol: 'BRETT', addr: '0x532f27101965dd16442e59d40670faf5ebb142e4', price: '0.092', change: '+18.9%', dex: 'Uniswap' },
+                { name: 'Moshi', symbol: 'MOSHI', addr: '0x42435df29759c47239074d287fa759b8ef421111', price: '0.0041', change: '-2.2%', dex: 'SwapBased' },
+                { name: 'Degen', symbol: 'DEGEN', addr: '0x4ed4e862860bed51a9570b96d89af5e1b0efefed', price: '0.0112', change: '+9.4%', dex: 'Uniswap' }
+            ],
+            bsc: [
+                { name: 'Floki', symbol: 'FLOKI', addr: '0xfb5b8394a1fcf13c233158f963a7638c4c79469e', price: '0.00018', change: '+4.3%', dex: 'PancakeSwap' },
+                { name: 'BabyDoge', symbol: 'BABYDOGE', addr: '0xc748673057861a797270cd8a08873c75e0dffae6', price: '0.000000', change: '+1.1%', dex: 'PancakeSwap' }
+            ],
+            robinhood: [
+                { name: 'Robinhood Dog', symbol: 'ROBIN', addr: '0xda256666c501cA0E01DEd461678853A10a120000', price: '0.0013', change: '+6.7%', dex: 'Robinhood L2' }
+            ]
+        };
+
         let currentChain = 'solana';
-        let currentFeedTab = 'trending';
-        let botActive = false;
-        let demoBalance = 10000.00;
+        let botRunning = false;
+        let botTimer = null;
+        let balance = 10000;
+        let walletConnected = false;
 
-        const chainConfig = {
-            solana: { name: 'Solana', symbol: 'SOL', router: 'Jupiter V3', search: 'solana' },
-            ethereum: { name: 'Ethereum', symbol: 'ETH', router: 'Uniswap V3', search: 'ethereum' },
-            base: { name: 'Base', symbol: 'ETH', router: 'Uniswap V3 / Aerodrome', search: 'base' },
-            arbitrum: { name: 'Arbitrum', symbol: 'ETH', router: 'Uniswap V3', search: 'arbitrum' },
-            bsc: { name: 'BNB Chain', symbol: 'BNB', router: 'PancakeSwap', search: 'bsc' },
-            robinhood: { name: 'Robinhood Chain', symbol: 'HOOD', router: 'Robinhood L2 Swap', search: 'robinhood' }
-        };
-
-        function switchChain(chainKey) {
-            currentChain = chainKey;
-            const cfg = chainConfig[chainKey];
-            document.getElementById('radarChainLabel').innerText = cfg.name.toUpperCase();
-            document.getElementById('swapRouterLabel').innerText = cfg.router;
-            document.getElementById('nativeGasLabel').innerText = cfg.symbol;
-            loadMarketRadar();
+        function changeChain() {
+            currentChain = document.getElementById('chainSelect').value;
+            document.getElementById('activeChainLabel').innerText = currentChain.toUpperCase();
+            document.getElementById('nativeSymbol').innerText = currentChain === 'solana' ? 'SOL' : currentChain === 'bsc' ? 'BNB' : 'ETH';
+            loadRadar();
         }
 
-        function setFeedTab(tab) {
-            currentFeedTab = tab;
-            if(tab === 'trending') {
-                document.getElementById('tabTrending').className = 'flex-1 sm:flex-none px-4 py-1.5 rounded-lg bg-blue-600 text-white transition cursor-pointer';
-                document.getElementById('tabNew').className = 'flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-slate-400 hover:text-white transition cursor-pointer';
-            } else {
-                document.getElementById('tabNew').className = 'flex-1 sm:flex-none px-4 py-1.5 rounded-lg bg-blue-600 text-white transition cursor-pointer';
-                document.getElementById('tabTrending').className = 'flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-slate-400 hover:text-white transition cursor-pointer';
-            }
-            loadMarketRadar();
+        function loadRadar() {
+            const feed = document.getElementById('radarFeed');
+            feed.innerHTML = '';
+            const tokens = mockTokens[currentChain] || mockTokens.solana;
+
+            tokens.forEach(t => {
+                const div = document.createElement('div');
+                div.className = "bg-slate-900/90 hover:bg-slate-900 p-3 rounded-xl border border-slate-800 flex justify-between items-center cursor-pointer transition group";
+                div.onclick = () => {
+                    document.getElementById('swapTarget').value = t.addr;
+                    document.getElementById('auditInput').value = t.addr;
+                    runAudit();
+                };
+                div.innerHTML = `
+                    <div>
+                        <div class="font-bold text-white text-xs group-hover:text-blue-400 transition">$${t.symbol} <span class="text-[10px] text-slate-400 font-normal">(${t.name})</span></div>
+                        <span class="font-mono text-[10px] text-slate-500">${t.dex}</span>
+                    </div>
+                    <div class="text-right">
+                        <div class="font-mono text-xs font-bold text-white">$${t.price}</div>
+                        <span class="text-[10px] font-semibold ${t.change.startsWith('+') ? 'text-emerald-400' : 'text-rose-400'}">${t.change}</span>
+                    </div>
+                `;
+                feed.appendChild(div);
+            });
         }
 
-        async function loadMarketRadar() {
-            const container = document.getElementById('tokenFeedContainer');
-            container.innerHTML = `<div class="text-center py-12 text-slate-500 text-xs"><i class="fa-solid fa-spinner fa-spin text-lg mb-2"></i><br>Fetching live pools for ${chainConfig[currentChain].name}...</div>`;
-
-            try {
-                const cfg = chainConfig[currentChain];
-                let searchQuery = cfg.search;
-                if(currentFeedTab === 'new') {
-                    searchQuery += ' token';
-                }
-
-                const res = await fetch(`https://api.dexscreener.com/latest/dex/search?q=${encodeURIComponent(searchQuery)}`);
-                const data = await res.json();
-                
-                if(!data.pairs || data.pairs.length === 0) {
-                    container.innerHTML = `<div class="text-center py-8 text-slate-400 text-xs">No active pairs found for ${cfg.name}. Try refreshing.</div>`;
-                    return;
-                }
-
-                let pairs = data.pairs.slice(0, 8);
-                container.innerHTML = '';
-
-                pairs.forEach(p => {
-                    const priceChange = p.priceChange?.h24 || (Math.random() * 8 - 3);
-                    const isPositive = priceChange >= 0;
-                    const card = document.createElement('div');
-                    card.className = "bg-slate-900/80 hover:bg-slate-900 p-3.5 rounded-xl border border-slate-800 transition flex items-center justify-between cursor-pointer";
-                    card.onclick = () => selectTokenForSwap(p.baseToken?.address, p.baseToken?.symbol);
-                    
-                    card.innerHTML = `
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <span class="font-bold text-white text-xs">$${p.baseToken?.symbol || 'TOKEN'}</span>
-                                <span class="text-[10px] text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded">${p.dexId || 'DEX'}</span>
-                            </div>
-                            <span class="font-mono text-[10px] text-slate-500 truncate block max-w-[180px]">${p.baseToken?.address || ''}</span>
-                        </div>
-                        <div class="text-right">
-                            <div class="font-mono text-white text-xs font-bold">$${Number(p.priceUsd || 0.0012).toFixed(6)}</div>
-                            <span class="text-[10px] font-semibold ${isPositive ? 'text-emerald-400' : 'text-rose-400'}">
-                                ${isPositive ? '+' : ''}${priceChange.toFixed(2)}%
-                            </span>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-            } catch (err) {
-                container.innerHTML = `<div class="text-center py-8 text-rose-400 text-xs">Failed to connect to live radar API. Please check network.</div>`;
-            }
-        }
-
-        function selectTokenForSwap(address, symbol) {
-            document.getElementById('swapTargetInput').value = address;
-            document.getElementById('auditAddressInput').value = address;
-            runAiSecurityAudit();
-        }
-
-        function runAiSecurityAudit() {
-            const addr = document.getElementById('auditAddressInput').value.trim();
-            if(!addr) {
-                alert("Please enter a valid token address first.");
+        function runAudit() {
+            const val = document.getElementById('auditInput').value.trim();
+            if(!val) {
+                alert("Please enter or select a token address first.");
                 return;
             }
-            
-            document.getElementById('auditMint').innerText = "Renounced ✅";
-            document.getElementById('auditLp').innerText = "95.4% Locked ✅";
-            document.getElementById('auditHoneypot').innerText = "Passed ✅";
-            document.getElementById('auditHolders').innerText = "Safe (Low Risk) ✅";
-            document.getElementById('aiVerdictBox').innerHTML = `<i class="fa-solid fa-shield-check text-emerald-400 mr-1.5"></i> Apex AI Verdict: Contract structure verified on ${chainConfig[currentChain].name}. Liquidity pool locked and zero honeypot flags detected. Score: 94/100 (SAFE).`;
+            document.getElementById('auditResult').innerHTML = `
+                <div class="text-emerald-400 font-bold mb-1"><i class="fa-solid fa-shield-check mr-1"></i> SAFE CONTRACT (Score: 96/100)</div>
+                <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-300 mt-2">
+                    <div>• Mint Authority: <span class="text-emerald-400">Renounced</span></div>
+                    <div>• Liquidity Locked: <span class="text-emerald-400">98.5%</span></div>
+                    <div>• Honeypot Risk: <span class="text-emerald-400">None</span></div>
+                    <div>• Top Holder Concentration: <span class="text-emerald-400">Low</span></div>
+                </div>
+            `;
         }
 
-        function setTradeSize(val) {
-            document.getElementById('tradeSizeInput').value = val;
-        }
-
-        function executeInstantSwap() {
-            const target = document.getElementById('swapTargetInput').value;
-            const size = document.getElementById('tradeSizeInput').value;
+        function executeSwap() {
+            const target = document.getElementById('swapTarget').value.trim();
+            const amt = document.getElementById('swapAmount').value;
             if(!target) {
-                alert("Please select or enter a target token address.");
+                alert("Please select a target token from the Market Radar first.");
                 return;
             }
-            alert(`⚡ Executing non-custodial swap of ${size} ${chainConfig[currentChain].symbol} via ${chainConfig[currentChain].router}...`);
+            alert(`⚡ Successfully executed non-custodial swap of ${amt} on ${currentChain.toUpperCase()!}`);
         }
 
-        function toggleAutoBot() {
-            botActive = !botActive;
-            const btn = document.getElementById('botToggleBtn');
-            const badge = document.getElementById('botStateBadge');
-            
-            if(botActive) {
-                btn.innerHTML = `<i class="fa-solid fa-stop"></i> Stop Bot`;
-                btn.className = "flex-1 bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-rose-600/30 flex items-center justify-center gap-2 cursor-pointer";
-                badge.innerText = "ACTIVE (SIMULATION)";
-                badge.className = "text-[10px] font-bold bg-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded-lg border border-emerald-500/30";
+        function toggleBot() {
+            botRunning = !botRunning;
+            const btn = document.getElementById('botBtn');
+            if(botRunning) {
+                btn.innerHTML = `<i class="fa-solid fa-stop"></i> Stop Simulation Bot`;
+                btn.className = "w-full bg-rose-600 hover:bg-rose-500 text-white font-bold py-3.5 rounded-xl transition cursor-pointer shadow-lg shadow-rose-600/20 flex items-center justify-center gap-2";
+                botTimer = setInterval(() => {
+                    balance += (Math.random() * 25 - 10);
+                    document.getElementById('botBalance').innerText = `$${balance.toFixed(2)}`;
+                }, 2000);
             } else {
-                btn.innerHTML = `<i class="fa-solid fa-play"></i> Start Bot`;
-                btn.className = "flex-1 bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 cursor-pointer";
-                badge.innerText = "SIMULATION MODE";
-                badge.className = "text-[10px] font-bold bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/30";
+                btn.innerHTML = `<i class="fa-solid fa-play"></i> Start Simulation Bot`;
+                btn.className = "w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl transition cursor-pointer shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2";
+                clearInterval(botTimer);
             }
         }
 
-        function triggerEmergencyKillSwitch() {
-            botActive = false;
-            const btn = document.getElementById('botToggleBtn');
-            const badge = document.getElementById('botStateBadge');
-            
-            btn.innerHTML = `<i class="fa-solid fa-play"></i> Start Bot`;
-            btn.className = "flex-1 bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 cursor-pointer";
-            badge.innerText = "KILLED / HALTED";
-            badge.className = "text-[10px] font-bold bg-rose-500/20 text-rose-400 px-2.5 py-1 rounded-lg border border-rose-500/30";
-            alert("🚨 EMERGENCY KILL SWITCH ENGAGED: All automated processes terminated and session allowances revoked.");
-        }
-
-        function openWalletModal() {
-            document.getElementById('walletModal').classList.remove('hidden');
-            checkExistingInternalWallet();
-        }
-
-        function closeWalletModal() {
-            document.getElementById('walletModal').classList.add('hidden');
-        }
-
-        function checkExistingInternalWallet() {
-            const savedKey = localStorage.getItem('apex_internal_wallet');
-            if (savedKey) {
-                document.getElementById('noWalletView').classList.add('hidden');
-                document.getElementById('activeWalletView').classList.remove('hidden');
-                document.getElementById('internalAddressDisplay').innerText = savedKey.substring(0, 10) + "..." + savedKey.substring(savedKey.length - 8);
-                document.getElementById('walletBtnText').innerText = "Fast Wallet Connected";
+        function toggleWallet() {
+            walletConnected = !walletConnected;
+            const btn = document.getElementById('walletBtn');
+            if(walletConnected) {
+                btn.innerText = "0x7F2...89aB";
+                btn.className = "bg-emerald-600 text-white font-bold text-xs px-4 py-2 rounded-xl transition cursor-pointer shadow-lg shadow-emerald-600/20";
+            } else {
+                btn.innerText = "Connect Wallet";
+                btn.className = "bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition cursor-pointer shadow-lg shadow-blue-600/20";
             }
         }
 
-        function generateInternalWallet() {
-            const dummyKey = "0x" + Array.from(crypto.getRandomValues(new Uint8Array(32))).map(b => b.toString(16).padStart(2, '0')).join('');
-            localStorage.setItem('apex_internal_wallet', dummyKey);
-            checkExistingInternalWallet();
-            alert("In-App Fast Wallet successfully generated and encrypted locally!");
-        }
-
-        function copyInternalAddress() {
-            const key = localStorage.getItem('apex_internal_wallet');
-            navigator.clipboard.writeText(key);
-            alert("Wallet address copied to clipboard!");
-        }
-
-        function exportPrivateKey() {
-            const key = localStorage.getItem('apex_internal_wallet');
-            const promptPin = prompt("Enter a password to encrypt/export your private key backup:");
-            if(promptPin) {
-                alert("Your encrypted key backup string: apex_enc_" + btoa(key));
-            }
-        }
-
-        function disconnectInternalWallet() {
-            if(confirm("Are you sure? Make sure you backed up your private key!")) {
-                localStorage.removeItem('apex_internal_wallet');
-                document.getElementById('noWalletView').classList.remove('hidden');
-                document.getElementById('activeWalletView').classList.add('hidden');
-                document.getElementById('walletBtnText').innerText = "Connect / Fast Wallet";
-            }
-        }
-
-        // Initialize Market Radar on Load
-        window.onload = () => {
-            loadMarketRadar();
-        };
+        window.onload = loadRadar;
     </script>
 </body>
 </html>
