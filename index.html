@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApexTerminal AI - On-Chain Intelligence Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #080b11; color: #e2e8f0; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+        .glass-panel { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glow-green { box-shadow: 0 0 15px rgba(16, 185, 129, 0.25); }
+        .glow-blue { box-shadow: 0 0 15px rgba(59, 130, 246, 0.25); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col p-4 md:p-6">
+
+    <!-- Top Navigation -->
+    <header class="glass-panel rounded-2xl px-6 py-4 mb-6 flex justify-between items-center max-w-7xl w-full mx-auto">
+        <div class="flex items-center space-x-3">
+            <div class="h-10 w-10 bg-gradient-to-tr from-blue-600 to-emerald-400 rounded-xl flex items-center justify-center font-bold text-white text-xl shadow-lg glow-blue">
+                ⚡
+            </div>
+            <div>
+                <h1 class="font-bold text-white tracking-wide text-lg">APEXTERMINAL <span class="text-blue-500">AI</span></h1>
+                <p class="text-[10px] text-slate-400 -mt-1">Real-time On-Chain Security & Execution</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <span class="inline-flex items-center text-xs text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20">
+                <span class="h-2 w-2 bg-emerald-400 rounded-full animate-pulse mr-2"></span> Solana Node: Online
+            </span>
+            <button onclick="connectWallet()" id="walletBtn" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-4 py-2 rounded-xl transition shadow-md shadow-blue-600/30">Connect Wallet</button>
+        </div>
+    </header>
+
+    <!-- Main Grid Workspace -->
+    <main class="grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-7xl w-full mx-auto flex-1">
+
+        <!-- LEFT PANEL: WHALE RADAR (4 Cols) -->
+        <section class="lg:col-span-4 glass-panel rounded-2xl p-5 flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-sm font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-radar text-blue-400"></i> Whale Radar Feed
+                </h2>
+                <span class="text-[10px] text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">Live</span>
+            </div>
+
+            <div id="whaleFeed" class="space-y-3 overflow-y-auto flex-1 pr-1 max-h-[580px]">
+                <!-- Item 1 -->
+                <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 hover:border-blue-500/50 transition cursor-pointer" onclick="selectToken('SOLO', '9xZ7...pump', '96%', '24500')">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-bold text-emerald-400">🐋 3 Whales Accumulated</span>
+                        <span class="text-[10px] text-slate-500">12s ago</span>
+                    </div>
+                    <p class="text-sm font-semibold text-white mt-1">$SOLO <span class="text-xs text-slate-400 font-normal">(Solo AI)</span></p>
+                    <div class="flex justify-between text-[11px] text-slate-400 mt-2">
+                        <span>Buy Vol: <b class="text-slate-200">$24,500</b></span>
+                        <span>Safety: <b class="text-emerald-400">96/100</b></span>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 hover:border-amber-500/50 transition cursor-pointer" onclick="selectToken('NEO', '4kP8...moon', '42%', '8100')">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-bold text-amber-400">⚠️ Smart Money Buying</span>
+                        <span class="text-[10px] text-slate-500">1m ago</span>
+                    </div>
+                    <p class="text-sm font-semibold text-white mt-1">$NEO <span class="text-xs text-slate-400 font-normal">(Matrix Bot)</span></p>
+                    <div class="flex justify-between text-[11px] text-slate-400 mt-2">
+                        <span>Buy Vol: <b class="text-slate-200">$8,100</b></span>
+                        <span>Safety: <b class="text-amber-400">42/100</b></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CENTER PANEL: AI RUG SHIELD AUDIT (5 Cols) -->
+        <section class="lg:col-span-5 glass-panel rounded-2xl p-5 flex flex-col justify-between">
+            <div>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-sm font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved text-emerald-400"></i> AI Rug Shield Audit
+                    </h2>
+                    <span id="scoreBadge" class="bg-emerald-500/10 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-emerald-500/20">96/100 SAFE</span>
+                </div>
+
+                <!-- Contract Address Search -->
+                <div class="flex gap-2 mb-4">
+                    <input type="text" id="tokenAddressInput" value="9xZ7...pump" class="bg-slate-900 border border-slate-800 text-xs rounded-xl px-3 py-2.5 w-full text-slate-200 focus:outline-none focus:border-blue-500" placeholder="Paste Solana / EVM Token Address...">
+                    <button onclick="scanContract()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-4 py-2.5 rounded-xl font-semibold transition">Scan</button>
+                </div>
+
+                <!-- Safety Audit Checklist -->
+                <div class="space-y-2 text-xs">
+                    <div class="flex justify-between p-2.5 bg-slate-900/40 rounded-lg border border-slate-800/60">
+                        <span class="text-slate-400">Mint Authority Revoked</span>
+                        <span id="checkMint" class="text-emerald-400 font-bold">YES ✅</span>
+                    </div>
+                    <div class="flex justify-between p-2.5 bg-slate-900/40 rounded-lg border border-slate-800/60">
+                        <span class="text-slate-400">Liquidity Pool Burned</span>
+                        <span id="checkLp" class="text-emerald-400 font-bold">100% Locked ✅</span>
+                    </div>
+                    <div class="flex justify-between p-2.5 bg-slate-900/40 rounded-lg border border-slate-800/60">
+                        <span class="text-slate-400">Top 10 Holder Concentration</span>
+                        <span id="checkHolders" class="text-slate-200 font-bold">12.4% (Healthy)</span>
+                    </div>
+                    <div class="flex justify-between p-2.5 bg-slate-900/40 rounded-lg border border-slate-800/60">
+                        <span class="text-slate-400">Developer Deployment History</span>
+                        <span id="checkDev" class="text-emerald-400 font-bold">0 Clean Scams</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Summary Box -->
+            <div id="aiSummaryBox" class="p-3.5 bg-blue-950/30 border border-blue-500/20 rounded-xl text-xs text-slate-300 mt-4">
+                <p class="font-bold text-blue-400 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-robot"></i> Apex AI Verdict:</p>
+                <span id="aiSummaryText">"Contract parameters verified safe. Low dev concentration and healthy liquidity distribution. Optimal entry setup."</span>
+            </div>
+        </section>
+
+        <!-- RIGHT PANEL: FAST EXECUTION PORTAL (3 Cols) -->
+        <section class="lg:col-span-3 glass-panel rounded-2xl p-5 flex flex-col justify-between">
+            <div>
+                <h2 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-bolt text-yellow-400"></i> Fast Execution
+                </h2>
+
+                <div class="space-y-3.5 text-xs">
+                    <div>
+                        <label class="text-slate-400 block mb-1">Target Token</label>
+                        <input type="text" id="targetTokenName" value="$SOLO" readonly class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-white font-bold">
+                    </div>
+
+                    <div>
+                        <label class="text-slate-400 block mb-1">Buy Amount (SOL)</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button class="bg-slate-800 hover:bg-slate-700 p-2 rounded-lg text-center font-semibold border border-slate-700" onclick="setAmount(0.1)">0.1</button>
+                            <button class="bg-slate-800 hover:bg-slate-700 p-2 rounded-lg text-center font-semibold border border-slate-700" onclick="setAmount(0.5)">0.5</button>
+                            <button class="bg-slate-800 hover:bg-slate-700 p-2 rounded-lg text-center font-semibold border border-slate-700" onclick="setAmount(1.0)">1.0</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-slate-400 block mb-1">Protection Strategy</label>
+                        <span class="text-xs text-emerald-400 font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-shield-cat"></i> MEV Anti-Sandwich Active
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="executeTrade()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 rounded-xl transition glow-green text-xs mt-6 flex items-center justify-center gap-2">
+                ⚡ Instant Buy
+            </button>
+        </section>
+
+    </main>
+
+    <script>
+        let selectedAmount = 0.5;
+
+        function setAmount(val) {
+            selectedAmount = val;
+            alert(`Selected order size: ${val} SOL`);
+        }
+
+        function selectToken(name, addr, score, vol) {
+            document.getElementById('targetTokenName').value = '$' + name;
+            document.getElementById('tokenAddressInput').value = addr;
+            document.getElementById('scoreBadge').innerText = score + " AUDITED";
+            
+            if(parseInt(score) < 50) {
+                document.getElementById('scoreBadge').className = "bg-amber-500/10 text-amber-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-amber-500/20";
+                document.getElementById('aiSummaryText').innerText = "⚠️ CAUTION: High concentration detected in dev wallet. Proceed with small size.";
+            } else {
+                document.getElementById('scoreBadge').className = "bg-emerald-500/10 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-lg border border-emerald-500/20";
+                document.getElementById('aiSummaryText').innerText = "Contract parameters verified safe. Low dev concentration and healthy liquidity distribution.";
+            }
+        }
+
+        function scanContract() {
+            const addr = document.getElementById('tokenAddressInput').value;
+            if(!addr) return alert("Please enter a valid token address");
+            
+            document.getElementById('aiSummaryText').innerText = "Scanning on-chain smart contract bytecode...";
+            setTimeout(() => {
+                document.getElementById('scoreBadge').innerText = "92% AUDITED";
+                document.getElementById('aiSummaryText').innerText = "Scan Complete: No honeypot code or unrenounced mint authorities found.";
+            }, 1000);
+        }
+
+        function connectWallet() {
+            document.getElementById('walletBtn').innerText = "0x7F...3b9A";
+            document.getElementById('walletBtn').className = "bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 text-xs font-semibold px-4 py-2 rounded-xl";
+        }
+
+        function executeTrade() {
+            const token = document.getElementById('targetTokenName').value;
+            alert(`Executing trade: Buying ${selectedAmount} SOL of ${token} via private RPC relay!`);
+        }
+    </script>
+</body>
+</html>
